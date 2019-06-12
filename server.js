@@ -1,6 +1,7 @@
 const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
+const fetch = require("node-fetch");
 const dotenv = require('dotenv');
 dotenv.config();
 
@@ -240,5 +241,17 @@ app.route('/api/replies/:board')
         else {console.log(err.message);}
     }      
 });
+
+app.get('/api/validate-recaptha', async (req, res) => {
+    const value = req.query.value;
+    const fetched = await fetch('https://www.google.com/recaptcha/api/siteverify', {
+        method: 'POST',
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: `secret=${process.env.RECAPTCHA_KEY}&response=${value}`
+    });
+    const fetchedJson = await fetched.json();
+    res.send(fetchedJson);
+});
+
 
 app.listen(process.env.PORT || 3001);
