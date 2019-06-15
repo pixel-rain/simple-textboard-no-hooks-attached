@@ -9,7 +9,7 @@ class Thread extends Component {
       super(props);
       this.state = {
         value: '', 
-        postValue: '',
+        postValue: [],
         display: 'flex'
       }; //postValue is a placeholder before i connected backend
       this._reCaptchaRef = React.createRef();
@@ -23,7 +23,7 @@ class Thread extends Component {
       const fetched = await fetch('http://localhost:3001/api/validate-recaptha?value=' + recaptchaValue);
       const fetchedJson = await fetched.json();
       if (fetchedJson.success) {
-        let val = this.state.postValue + this.state.value + 'splitbyplaceholder';
+        let val = this.state.postValue.concat(this.state.value);
         this.setState({postValue: val});
         this.setState({value: ''});
         this._reCaptchaRef.current.reset();
@@ -46,7 +46,7 @@ class Thread extends Component {
             }}>
               <Loader 
                 type="Triangle"
-                color="slategrey"
+                color="palegreen"
                 height="45"
                 width="45"
               /> 

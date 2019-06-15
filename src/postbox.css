@@ -5,3 +5,13 @@
     background-color: #cccccc;
   }
   
+  .post-cap {
+    width: 100%;
+    height: 30px;
+    background-color: #888888;
+  }
+
+  .decoration {
+    float: right;
+    cursor: pointer;
+  }
